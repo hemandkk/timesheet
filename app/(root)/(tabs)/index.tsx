@@ -1,10 +1,11 @@
-import { Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+//app\(root)\(tabs)\index.tsx
+
+import AdminHome from "@/components/AdminHome";
+import UserHome from "@/components/UserHome";
+import { useAuthStore } from "@/store/authStore";
+
 export default function HomePage() {
-  console.log("HOME PAGE RENDERED");
-  return (
-    <SafeAreaView className="flex-1 justify-center items-center">
-      <Text className="bg-red"> My view sdssdfsdfgfg </Text>
-    </SafeAreaView>
-  );
+  const role = useAuthStore((state) => state.user?.role);
+
+  return role === "Admin" ? <AdminHome /> : <UserHome />;
 }

@@ -10,12 +10,12 @@ export function useLogin() {
     mutationFn: authApi.login,
 
     onSuccess: async (res) => {
-      console.log("LOGIN SUCCESS");
+      //console.log("LOGIN SUCCESS");
       const data = res.data;
       await tokenStorage.setAccessToken(data.access);
       await tokenStorage.setRefreshToken(data.refresh);
 
-      setUser({
+      const user = {
         id: data.id,
         username: data.username,
         email: data.email,
@@ -29,8 +29,11 @@ export function useLogin() {
         expected_daily_hours: data.expected_daily_hours,
         groups: data.groups,
         is_active: data.is_active,
-      });
-      console.log("AUTH STATE", useAuthStore.getState());
+      };
+      setUser(user);
+      await tokenStorage.setUser(user);
+      //console.log("AUTH STATE", useAuthStore.getState());
+      console.log("AUTH AFTER LOGIN", useAuthStore.getState().isAuthenticated);
     },
     onError: (error: any) => {
       //console.log("LOGIN ERROR");
@@ -38,3 +41,40 @@ export function useLogin() {
     },
   });
 }
+
+export function useForgotPassword() {
+  return useMutation({
+    mutationFn: authApi.forgotPassword,
+  });
+}
+export function useVerifyOTP() {
+  return useMutation({
+    mutationFn: authApi.verifyOTP,
+  });
+}
+export function useResetPassword() {
+  return useMutation({
+    mutationFn: authApi.resetPassword,
+  });
+}
+/* 
+export function useForgotPassword() {
+  return useMutation({
+    mutationFn: async (email: string) => {
+      const res = await authApi.forgotPassword(email);
+      return res.data;
+    },
+  });
+} 
+export function useForgotPassword(email: string) {
+  return useQuery({
+    queryKey: ["forgot-password", email],
+    queryFn: async () => {
+      const res = await authApi.forgotPassword(email);
+      return res.data;
+    },
+    enabled: !!email,
+  });
+}  
+
+*/

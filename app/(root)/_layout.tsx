@@ -1,3 +1,4 @@
+//app\(root)\_layout.tsx
 import { useAuthStore } from "@/store/authStore";
 import { Redirect, Slot } from "expo-router";
 export default function RootLayout() {

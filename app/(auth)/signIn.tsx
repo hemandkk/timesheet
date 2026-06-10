@@ -26,7 +26,7 @@ export default function SignInScreen() {
       });
       //console.log("SUCCESS:", result.data);
 
-      router.replace("/");
+      // router.replace("/");
     } catch (error) {
       console.log("ERROR:", error);
       /*  console.log("Response:", error?.response?.data);
@@ -102,7 +102,7 @@ export default function SignInScreen() {
           <TouchableOpacity
             onPress={onSignInPress}
             disabled={isLoading}
-            className="w-full bg-blue-600 py-4 rounded-xl items-center mb-4"
+            className="w-full bg-primary py-4 rounded-xl items-center mb-4"
           >
             {isLoading ? (
               <ActivityIndicator color="white" />
@@ -112,7 +112,7 @@ export default function SignInScreen() {
           </TouchableOpacity>
 
           <View className="flex-row justify-end px-1">
-            <Link href="/(auth)/signIn">
+            <Link href="/(auth)/forgotPassword">
               <Text className="text-blue-600 font-semibold">
                 Forgot Password
               </Text>
